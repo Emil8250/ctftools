@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ctftools", "ctftools.csproj", "{8EED3D61-9C22-4B56-BCE5-13E136CEF643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ctftools.tests", "..\ctftools.tests\ctftools.tests.csproj", "{799295F8-9996-4C4A-8212-F78847ABB69C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EED3D61-9C22-4B56-BCE5-13E136CEF643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EED3D61-9C22-4B56-BCE5-13E136CEF643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EED3D61-9C22-4B56-BCE5-13E136CEF643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EED3D61-9C22-4B56-BCE5-13E136CEF643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{799295F8-9996-4C4A-8212-F78847ABB69C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{799295F8-9996-4C4A-8212-F78847ABB69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{799295F8-9996-4C4A-8212-F78847ABB69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{799295F8-9996-4C4A-8212-F78847ABB69C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36485DE8-6EF7-4A3B-9E61-394FEC4BEE43}
+	EndGlobalSection
+EndGlobal
