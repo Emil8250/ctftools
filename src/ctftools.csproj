@@ -10,12 +10,21 @@
     <Description>A set of tools for making CTF challenges easier in .NET</Description>
     <RepositoryUrl>https://github.com/Emil8250/ctftools</RepositoryUrl>
     <PackageLicenseFile>MIT-LICENSE.txt</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="MIT-LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
