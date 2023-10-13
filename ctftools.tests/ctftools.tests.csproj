@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ctftools\ctftools.csproj" />
+    <ProjectReference Include="..\src\ctftools.csproj" />
   </ItemGroup>
 
 </Project>

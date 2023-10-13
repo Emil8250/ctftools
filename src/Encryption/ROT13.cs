@@ -17,43 +17,23 @@ namespace ctftools.Encryption
         /// <returns></returns>
         public static string Rotate(string input, int n = 13)
         {
-            var result = "";
-            foreach (var c in input)
+            return string.Concat(input.Select(c =>
             {
-                char rightRot = Convert.ToChar(c + n);
-                char leftRot = Convert.ToChar(c - n);
                 if (!char.IsLetter(c))
-                {
-                    result += c.ToString();
-                    continue;
-                }
+                    return c;
+
+                var rightRot = (char)(c + n);
+                var leftRot = (char)(c - n);
+
                 if (char.IsLetter(rightRot) && char.IsLetter(leftRot))
                 {
-                    if (char.IsUpper(c))
-                    {
-                        if (char.IsUpper(leftRot))
-                            result += leftRot;
-                        else
-                            result += rightRot;
-                    }
-                    else
-                    {
-                        if (char.IsLower(leftRot))
-                            result += leftRot;
-                        else
-                            result += rightRot;
-                    }
-                }
-                else
-                {
-                    if (char.IsLetter(rightRot))
-                        result += rightRot;
-                    else if (char.IsLetter(leftRot))
-                        result += leftRot;
+                    return char.IsUpper(c)
+                        ? (char.IsUpper(leftRot) ? leftRot : rightRot)
+                        : (char.IsLower(leftRot) ? leftRot : rightRot);
                 }
 
-            }
-            return result;
+                return char.IsLetter(rightRot) ? rightRot : leftRot;
+            }));
         }
     }
 }
