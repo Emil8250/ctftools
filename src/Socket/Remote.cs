@@ -1,25 +1,20 @@
-﻿using ctftools.Socket.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("ctftools.tests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace ctftools.Socket;
-public class Remote: IRemote
+public class Remote
 {
-    private readonly ITcpClient _tcpClient;
+    private readonly TcpClient _tcpClient;
     private readonly NetworkStream _networkStream;
-    private readonly IStreamReader _streamReader;
+    private readonly StreamReader _streamReader;
     public Remote(string url, int port)
     {
-        _tcpClient = CreateTcpClient(url, port);
+        _tcpClient = new TcpClient(url, port);
         _networkStream = _tcpClient.GetStream();
-        _streamReader = CreateStreamReader(_networkStream);
+        _streamReader = new StreamReader(_networkStream);
     }
 
     public string? ReadLine()
@@ -42,15 +37,5 @@ public class Remote: IRemote
     {
         Byte[] data = Encoding.ASCII.GetBytes(line + '\n');
         _networkStream.Write(data, 0, data.Length);
-    }
-
-    public ITcpClient CreateTcpClient(string url, int port)
-    {
-        return new Implementations.TcpClient(url, port);
-    }
-
-   public IStreamReader CreateStreamReader(NetworkStream stream)
-    {
-        return new Implementations.StreamReader(stream);
     }
 }

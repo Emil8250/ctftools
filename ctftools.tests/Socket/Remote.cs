@@ -1,5 +1,4 @@
 ﻿using ctftools.Socket;
-using ctftools.Socket.Interfaces;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -13,22 +12,21 @@ namespace ctftools.tests.Socket
     public class Remote
     {
         [Fact]
-        public void VerifyPicoBasedSolveIntegration()
+        public void ReadLineUntilReturnsOnlyLineWithDelimiter()
         {
-            var r = new ctftools.Socket.Remote("jupiter.challenges.picoctf.org", 29956);
-            var question = r.ReadLineUntil("give");
-            var questionArr = question.Split(' ');
-            List<string> binaryList = new();
-            foreach(var item in questionArr) {
-                if (int.TryParse(item, out _))
-                {
-                    binaryList.Add(item);
-                }
-            }
-            var answer = ctftools.Format.Binary.ToText(string.Concat(binaryList));
-            r.ReadLineUntil("Input");
-            r.SendLine(answer);
-            Assert.Contains("Please give me the", r.ReadLine());
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            r.SendLine("This is test\nAssertThis");
+            var result = r.ReadLineUntil("Assert");
+            Assert.Equal("AssertThis", result);
+        }
+
+        [Fact]
+        public void ReadLineReturnsFirstLine()
+        {
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            r.SendLine("This is test\nAssertThis");
+            var result = r.ReadLine();
+            Assert.Equal("This is test", result);
         }
     }
 }
