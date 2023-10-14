@@ -1,7 +1,8 @@
 # ctftools
 [![codecov](https://codecov.io/gh/Emil8250/ctftools/graph/badge.svg?token=MTV8B34LKJ)](https://codecov.io/gh/Emil8250/ctftools)
 
-A collection of ctf tools written in C#
+A collection of ctf tools written in C#.
+If you want to contribute please read the [CONTRIBUTING](https://github.com/Emil8250/ctftools/blob/master/CONTRIBUTING.md).
 
 ## Usage
 Simplest way to use this toolset, is to add the nuget package to your application:
