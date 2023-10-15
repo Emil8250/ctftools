@@ -38,6 +38,9 @@ jobs:
     - name: Print Current Path
       run: |
        echo "Current path is: $(pwd)"
+    - name: Find .nupkg files
+      run: find / -type f -name "*.nupkg"
+
     - name: Push to NuGet
       run: |
         echo "Current path is: $(pwd)"
