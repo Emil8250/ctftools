@@ -32,7 +32,7 @@ jobs:
       run: |
        echo "Current path is: $(pwd)"
     - name: Pack nugets
-      run: dotnet pack -c Release --no-build --output .
+      run: dotnet pack -c Release -v d --no-build --output .
     - name: Print Current Path
       run: |
        echo "Current path is: $(pwd)"
