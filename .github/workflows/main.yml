@@ -31,7 +31,4 @@ jobs:
     - name: Create NuGet Package
       run: dotnet pack -c Release -o out --include-source --include-symbols
     - name: Publish to NuGet.org
-      uses: nuget/push@v1
-      with:
-        nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-        nuget-arguments: "out/*.nupkg"
+      run: dotnet nuget push "out/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source "https://api.nuget.org/v3/index.json"
