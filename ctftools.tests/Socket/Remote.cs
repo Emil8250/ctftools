@@ -28,5 +28,16 @@ namespace ctftools.tests.Socket
             var result = r.ReadLine();
             Assert.Equal("This is test", result);
         }
+
+        [Fact]
+        public void ReadBytesReturnsExpectedBytes()
+        {
+ 
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242); 
+            var testData = Encoding.ASCII.GetBytes("This is test\nAssertThis");
+            r.SendLine("This is test\nAssertThis");
+            var result = r.ReadBytes(testData.Length);
+            Assert.Equal(testData, result);
+        }
     }
 }
