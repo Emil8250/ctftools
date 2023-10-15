@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ctftools.tests.Encryption
+namespace ctftools.tests.Format
 {
     public class Binary
     {
