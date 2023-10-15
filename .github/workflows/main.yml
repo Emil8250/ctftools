@@ -28,10 +28,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" 
-    - name: Pack the project and find .nupkg files
-      run: |
-        dotnet pack
-        find . -type f -name "*.nupkg"
+    - name: Pack nugets
+      run: dotnet pack -c Release --no-build --output .
+    - name: Push to NuGet
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
     - name: Codecov
       uses: codecov/codecov-action@v1.5.2
 
