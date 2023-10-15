@@ -32,12 +32,16 @@ jobs:
       run: |
        echo "Current path is: $(pwd)"
     - name: Pack nugets
-      run: dotnet pack -c Release -v d --no-build --output .
+      run: |
+        echo "Current path is: $(pwd)"
+        dotnet pack -c Release -v d --no-build --output .
     - name: Print Current Path
       run: |
        echo "Current path is: $(pwd)"
     - name: Push to NuGet
-      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
+      run: |
+        echo "Current path is: $(pwd)"
+        dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
     - name: Codecov
       uses: codecov/codecov-action@v1.5.2
 
