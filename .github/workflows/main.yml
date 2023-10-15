@@ -28,23 +28,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" 
-    - name: Print Current Path
+    - name: Pack the project and find .nupkg files
       run: |
-       echo "Current path is: $(pwd)"
-    - name: Pack nugets
-      run: |
-        echo "Current path is: $(pwd)"
-        dotnet pack -c Release -v d --no-build --output .
-    - name: Print Current Path
-      run: |
-       echo "Current path is: $(pwd)"
-    - name: Find .nupkg files
-      run: find / -type f -name "*.nupkg"
-
-    - name: Push to NuGet
-      run: |
-        echo "Current path is: $(pwd)"
-        dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
+        dotnet pack -c Release -o "bin/Release" --include-source --include-symbols
+        find bin/Release -type f -name "*.nupkg"
     - name: Codecov
       uses: codecov/codecov-action@v1.5.2
 
