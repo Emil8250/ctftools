@@ -30,8 +30,8 @@ jobs:
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" 
     - name: Pack the project and find .nupkg files
       run: |
-        dotnet pack -c Release -o "bin/Release" --include-source --include-symbols
-        find bin/Release -type f -name "*.nupkg"
+        dotnet pack -c Release --no-build --output .
+        ffind . -type f -name "*.nupkg"
     - name: Codecov
       uses: codecov/codecov-action@v1.5.2
 
