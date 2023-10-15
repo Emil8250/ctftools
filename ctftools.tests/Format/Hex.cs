@@ -25,5 +25,21 @@ namespace ctftools.tests.Format
         {
             Assert.Throws<FormatException>(() => ctftools.Format.Hex.ToInt("Hej"));
         }
+
+        [Theory]
+        [InlineData(255, "FF")]
+        [InlineData(527, "20F")]
+        public void ToTextShouldConertIntToHexReturnsStringSuccess(int intValue, string expected) 
+        {
+            Assert.Equal(expected, ctftools.Format.Hex.ToText(intValue));
+        }
+
+        [Theory]
+        [InlineData(255, "F2")]
+        [InlineData(527, "22")]
+        public void ToTextShouldConertIntToHexReturnsStringFail(int intValue, string expected) 
+        {
+            Assert.NotEqual(expected, ctftools.Format.Hex.ToText(intValue));
+        }
     }
 }
