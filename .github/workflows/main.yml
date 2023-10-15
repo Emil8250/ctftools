@@ -27,11 +27,9 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"
     - name: Codecov
-      uses: codecov/codecov-action@v1.5.2
-    - name: Create NuGet Package
-      run: dotnet pack -c Release -o "bin/Release" --include-source --include-symbols
-    - name: Display NuGet Package Details
-      run: ls -la "bin/Release/*.nupkg"
-    - name: Publish to NuGet.org
-      run: dotnet nuget push "bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source "https://api.nuget.org/v3/index.json"
+      uses: codecov/codecov-action@v1.5.2    
+    - name: Pack nugets
+      run: dotnet pack -c Release --no-build --output .
+    - name: Push to NuGet
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
 
