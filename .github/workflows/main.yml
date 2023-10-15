@@ -31,7 +31,7 @@ jobs:
     - name: Pack the project and find .nupkg files
       run: |
         dotnet pack
-        ffind . -type f -name "*.nupkg"
+        find . -type f -name "*.nupkg"
     - name: Codecov
       uses: codecov/codecov-action@v1.5.2
 
