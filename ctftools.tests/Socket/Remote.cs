@@ -29,15 +29,50 @@ namespace ctftools.tests.Socket
             Assert.Equal("This is test", result);
         }
 
+
+        // Test cases for ReadBytes(n)
         [Fact]
         public void ReadBytesReturnsExpectedBytes()
         {
- 
-            var r = new ctftools.Socket.Remote("tcpbin.com", 4242); 
-            var testData = Encoding.ASCII.GetBytes("This is test\nAssertThis");
-            r.SendLine("This is test\nAssertThis");
-            var result = r.ReadBytes(testData.Length);
-            Assert.Equal(testData, result);
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            r.SendLine("This is a test");
+            var expectedBytes = Encoding.ASCII.GetBytes("This is a test");
+            byte[] result = r.ReadBytes(expectedBytes.Length);
+            Assert.Equal(expectedBytes, result);
         }
+
+        [Fact]
+        public void ReadBytesReturnsPartialBytes()
+        {
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            r.SendLine("This is a test");
+            var expectedBytes = Encoding.ASCII.GetBytes("This");
+            byte[] result = r.ReadBytes(expectedBytes.Length);
+            Assert.Equal(expectedBytes, result);
+        }
+
+        [Fact]
+        public void ReadBytesThrowsIfConnectionClosedPrematurely()
+        {
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            Assert.Throws<EndOfStreamException>(() => r.ReadBytes(5));
+        }
+
+        [Fact]
+        public void ReadBytesReturnsEmptyArrayIfNIsZero()
+        {
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            byte[] result = r.ReadBytes(0);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void ReadBytesReturnsEmptyArrayIfNIsNegative()
+        {
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            byte[] result = r.ReadBytes(-5);
+            Assert.Empty(result);
+        }
+
     }
 }

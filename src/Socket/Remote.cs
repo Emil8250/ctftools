@@ -18,7 +18,7 @@ public class Remote
         _tcpClient = new TcpClient(url, port);
         _networkStream = _tcpClient.GetStream();
         _streamReader = new StreamReader(_networkStream);
-        _buffer = new byte[1024]; 
+        _buffer = new byte[1024];
     }
 
     public string? ReadLine()
@@ -43,19 +43,29 @@ public class Remote
         _networkStream.Write(data, 0, data.Length);
     }
 
-     public byte[] ReadBytes(int n)
+    public byte[] ReadBytes(int n)
+    {
+        if (n <= 0)
         {
-            byte[] result = new byte[n];
-            int bytesRead = 0;
-            while (bytesRead < n)
-            {
-                int bytesToRead = Math.Min(n - bytesRead, _buffer.Length);
-                int read = _networkStream.Read(_buffer, 0, bytesToRead);
-                if (read == 0)
-                    throw new EndOfStreamException("Socket closed prematurely.");
-                Array.Copy(_buffer, 0, result, bytesRead, read);
-                bytesRead += read;
-            }
-            return result;
+            return Array.Empty<byte>();
         }
+
+        byte[] buffer = new byte[n];
+        int bytesRead = 0;
+
+        while (bytesRead < n)
+        {
+            int remainingBytes = n - bytesRead;
+            int count = _networkStream.Read(buffer, bytesRead, remainingBytes);
+
+            if (count <= 0)
+            {
+                throw new EndOfStreamException("Connection closed before reading enough bytes.");
+            }
+
+            bytesRead += count;
+        }
+
+        return buffer;
+    }
 }
