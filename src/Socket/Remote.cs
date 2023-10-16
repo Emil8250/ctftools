@@ -37,26 +37,6 @@ public class Remote
         }
         return line;
     }
-    public byte[] ReadBytesUntil(byte delimiter)
-    {
-        using (MemoryStream memoryStream = new MemoryStream())
-        {
-            int bytesRead;
-            byte[] buffer = new byte[1];
-
-            while ((bytesRead = _networkStream.Read(buffer, 0, 1)) > 0)
-            {
-                if (buffer[0] == delimiter)
-                {
-                    break; 
-                }
-
-                memoryStream.Write(buffer, 0, bytesRead);
-            }
-
-            return memoryStream.ToArray();
-        }
-    }
     public void SendLine(string line)
     {
         Byte[] data = Encoding.ASCII.GetBytes(line + '\n');
