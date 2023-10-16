@@ -28,5 +28,22 @@ namespace ctftools.tests.Socket
             var result = r.ReadLine();
             Assert.Equal("This is test", result);
         }
+        [Fact]
+        public void ReadBytesUntilReturnsBytesUntilDelimiter()
+        {
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            r.SendLine("This is test\nAssertThis");
+            var result = r.ReadBytesUntil((byte)'A'); 
+            byte[] expectedBytes = Encoding.UTF8.GetBytes("This is test\n");
+            Assert.Equal(expectedBytes, result);
+        }
+        [Fact]
+        public void ReadBytesUntilReturnsEmptyArrayWhenDelimiterNotFound()
+        {
+            var r = new ctftools.Socket.Remote("tcpbin.com", 4242);
+            r.SendLine("This is test\nAssertThis");
+            var result = r.ReadBytesUntil((byte)'X'); 
+            Assert.Empty(result);
+        }
     }
 }
