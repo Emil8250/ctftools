@@ -13,7 +13,9 @@ namespace ctftools.Format
         {
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             int length = plainTextBytes.Length;
-            StringBuilder encoded = new StringBuilder((int) Math.Ceiling(length * 8.0 / 5.0));
+            int encodedLength = (int) Math.Ceiling(length * 8.0 / 5.0);
+            int paddingLength = (8 - (encodedLength % 8)) % 8;
+            StringBuilder encoded = new StringBuilder(encodedLength + paddingLength);
 
             int buffer = 0;
             int bufferLength = 0;
@@ -36,6 +38,12 @@ namespace ctftools.Format
                 encoded.Append(Base32CharSet[buffer & 0x1F]);
             }
 
+            // Add padding characters
+            for (int i = 0; i < paddingLength; i++)
+            {
+                encoded.Append('=');
+            }
+
             return encoded.ToString();
         }
 
@@ -43,6 +51,12 @@ namespace ctftools.Format
         public static string ToText(string base32Text)
         {
             base32Text = base32Text.ToUpper();
+            int paddingIndex = base32Text.IndexOf('=');
+            if (paddingIndex >= 0)
+            {
+                base32Text = base32Text.Substring(0, paddingIndex); // Remove padding characters
+            }
+
             byte[] bytes = new byte[(int) Math.Ceiling(base32Text.Length * 5.0 / 8.0)];
 
             int buffer = 0;
