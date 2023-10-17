@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [8-publish-nuget]
+    branches: [master]
   pull_request:
     branches: [master]
   release:
