@@ -15,7 +15,7 @@ namespace ctftools.Format
             int length = plainTextBytes.Length;
             int encodedLength = (int) Math.Ceiling(length * 8.0 / 5.0);
             int paddingLength = (8 - (encodedLength % 8)) % 8;
-            StringBuilder encoded = new StringBuilder(encodedLength + paddingLength);
+            StringBuilder encoded = new(encodedLength + paddingLength);
 
             int buffer = 0;
             int bufferLength = 0;
@@ -54,7 +54,7 @@ namespace ctftools.Format
             int paddingIndex = base32Text.IndexOf('=');
             if (paddingIndex >= 0)
             {
-                base32Text = base32Text.Substring(0, paddingIndex); // Remove padding characters
+                base32Text = base32Text[..paddingIndex]; // Remove padding characters
             }
 
             byte[] bytes = new byte[(int) Math.Ceiling(base32Text.Length * 5.0 / 8.0)];
@@ -70,7 +70,7 @@ namespace ctftools.Format
 
                 int value = Array.IndexOf(Base32CharSet.ToArray(), c);
                 if (value == -1)
-                    throw new ArgumentException("Invalid character in base32 string");
+                    throw new ArgumentException("Invalid character in Base32 string");
 
                 buffer = (buffer << 5) | value;
                 bufferLength += 5;
