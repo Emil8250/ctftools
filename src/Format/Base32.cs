@@ -51,11 +51,19 @@ namespace ctftools.Format
         public static string ToText(string base32Text)
         {
             base32Text = base32Text.ToUpper();
-            int paddingIndex = base32Text.IndexOf('=');
-            if (paddingIndex >= 0)
+            int textLength = base32Text.Length;
+
+            // Remove padding characters
+            base32Text = base32Text.TrimEnd('=');
+            int padding = textLength - base32Text.Length;
+
+            // Ensure valid padding
+            if (textLength % 8 != 0 ||
+                !(padding == 0 || padding == 1 || padding == 3 || padding == 4 || padding == 6))
             {
-                base32Text = base32Text[..paddingIndex]; // Remove padding characters
+                throw new ArgumentException("Invalid padding in Base32 string");
             }
+
 
             byte[] bytes = new byte[(int) Math.Ceiling(base32Text.Length * 5.0 / 8.0)];
 
