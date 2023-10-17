@@ -4,6 +4,7 @@ namespace ctftools.tests.Format
 	public class Base32
 	{
         [Theory]
+        [InlineData("JBSWY3DPFQQFO33SNRSCC===", "Hello, World!")]
         [InlineData("MZWGCZ33MJQXGZJTGJ6Q====", "flag{base32}")]
         [InlineData("KrSXg5bRGIzTiNjW", "Test123456")]
         [InlineData("IE======", "A")]
@@ -14,6 +15,7 @@ namespace ctftools.tests.Format
 		}
 
         [Theory]
+        [InlineData("Hello, World!", "JBSWY3DPFQQFO33SNRSCC===")]
         [InlineData("flag{base32}", "MZWGCZ33MJQXGZJTGJ6Q====")]
         [InlineData("Test123456", "KRSXG5BRGIZTINJW")]
         [InlineData("A", "IE======")]
@@ -24,7 +26,7 @@ namespace ctftools.tests.Format
 		}
 
         [Theory]
-        [InlineData("Hello, World!")]
+        [InlineData("Hello, Base32 World!")]
         [InlineData("1234")]
         [InlineData("This is a slightly longer string for testing")]
         public void RoundTripEncodingDecoding(string text)
