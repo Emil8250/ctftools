@@ -2,9 +2,11 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -25,6 +27,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" 
+    - name: Publish
+      if: github.event_name == 'release'
+      run: |
+          dotnet pack -c Release
+          dotnet nuget push "./bin/Release/*.nupkg" --skip-duplicate --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
     - name: Codecov
       uses: codecov/codecov-action@v1.5.2
+
