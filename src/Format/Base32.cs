@@ -50,7 +50,8 @@ namespace ctftools.Format
         // Decode Base32 string to plaintext string
         public static string ToText(string base32Text)
         {
-            base32Text = base32Text.ToUpper();
+            // Remove whitespace, convert to uppercase
+            base32Text = new string(base32Text.ToCharArray().Where(c => !Char.IsWhiteSpace(c)).ToArray()).ToUpper();
             int textLength = base32Text.Length;
 
             // Remove padding characters
@@ -73,9 +74,6 @@ namespace ctftools.Format
 
             foreach (char c in base32Text)
             {
-                if (char.IsWhiteSpace(c))
-                    continue;
-
                 int value = Array.IndexOf(Base32CharSet.ToArray(), c);
                 if (value == -1)
                     throw new ArgumentException("Invalid character in Base32 string");

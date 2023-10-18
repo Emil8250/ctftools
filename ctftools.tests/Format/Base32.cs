@@ -4,6 +4,7 @@ namespace ctftools.tests.Format
 	public class Base32
 	{
         [Theory]
+        [InlineData("K5\tUG  S5DFON\nYGCY3   FEBUW4ICCMFZ WKMZS", "Whitespace in Base32")]
         [InlineData("JBSWY3DPFQQFO33SNRSCC===", "Hello, World!")]
         [InlineData("MZWGCZ33MJQXGZJTGJ6Q====", "flag{base32}")]
         [InlineData("KrSXg5bRGIzTiNjW", "Test123456")]
